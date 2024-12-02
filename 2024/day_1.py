@@ -21,7 +21,10 @@ def part1():
 
 
 def part2():
-    return
+    sim_score = 0
+    for num in list1:
+        sim_score += int(num) * list2.count(num)
+    return sim_score
 
 
 if len(list1) == len(list2):
