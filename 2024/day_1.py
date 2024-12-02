@@ -8,7 +8,16 @@ list1, list2 = list(zip(*[(item.split('   ')[0], item.split('   ')[1])
 
 
 def part1():
-    return
+    sorted1 = sorted(list1)
+    sorted2 = sorted(list2)
+    diff_sum = 0
+    for i in range(len(sorted1)):
+        item1 = int(sorted1[i])
+        item2 = int(sorted2[i])
+        diff = abs(item1 - item2)
+        diff_sum += diff
+
+    return diff_sum
 
 
 def part2():
