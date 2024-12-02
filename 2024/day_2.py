@@ -14,17 +14,11 @@ def is_safe_report(report: list) -> bool:
 
 
 def part1():
-    unsafe_reports = 0
+    safe_reports = 0
     for report in puzzle:
         report = [int(num) for num in report.split(' ')]
-        direction = 1 if report[len(report) - 1] > report[0] else -1
-        for i in range(0, len(report) - 1):
-            level = report[i]
-            next = report[i + 1]
-            if not 1 <= (next - level) * direction <= 3:
-                unsafe_reports += 1
-                break
-    safe_reports = len(puzzle) - unsafe_reports
+        if is_safe_report(report):
+            safe_reports += 1
     return safe_reports
 
 
