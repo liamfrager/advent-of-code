@@ -20,6 +20,16 @@ def xmas_count(i: int, j: int):
     return 0
 
 
+def is_x_mas(i: int, j: int):
+    if puzzle[i][j] == 'A':
+        vectors = [(x, y) for x in (-1, 1) for y in (-1, 1)]
+        ul, ur, dl, dr = [puzzle[i + vector[0]][j + vector[1]]
+                          for vector in vectors]
+        if all([cell in 'MS' for cell in [ul, ur, dl, dr]]) and dl != ur and dr != ul:
+            return True
+    return False
+
+
 def part1():
     xmases = 0
     for i in range(len(puzzle)):
@@ -29,7 +39,12 @@ def part1():
 
 
 def part2():
-    return
+    xmases = 0
+    for i in range(1, len(puzzle) - 1):
+        for j in range(1, len(puzzle[i]) - 1):
+            if is_x_mas(i, j):
+                xmases += 1
+    return xmases
 
 
 print(f'Part 1: {part1()}')
