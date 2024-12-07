@@ -29,7 +29,29 @@ def part1():
 
 
 def part2():
-    return
+    calibration_result = 0
+    for equation in puzzle:
+        answer, numbers = equation.split(': ')
+        answer = int(answer)
+        numbers = [int(num) for num in numbers.split(' ')]
+
+        sequence = ['+', '*', '||']
+        n = len(numbers) - 1
+        all_combinations = list(product(sequence, repeat=n))
+        for operations in all_combinations:
+            nums = list(numbers)
+            result = nums[0]
+            for i in range(1, len(nums)):
+                if operations[i - 1] == '+':
+                    result += nums[i]
+                elif operations[i - 1] == '*':
+                    result *= nums[i]
+                elif operations[i - 1] == '||':
+                    result = int(str(result) + str(nums[i]))
+            if result == answer:
+                calibration_result += answer
+                break
+    return calibration_result
 
 
 print(f'Part 1: {part1()}')
