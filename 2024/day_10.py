@@ -3,6 +3,21 @@ from file_reader_util import get_puzzle
 puzzle = [[int(cell) for cell in row] for row in get_puzzle('10')]
 
 
+def search_unique_trails(i, j, val) -> int:
+    trails_from_trailhead = 0
+    vectors = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+    for vector in vectors:
+        x, y = vector
+        nx, ny = i + x, j + y
+        if is_on_map(nx, ny) and puzzle[nx][ny] == val + 1:
+            if val == 8:
+                trails_from_trailhead += 1
+            else:
+                trails_from_trailhead += search_unique_trails(
+                    nx, ny, val + 1)
+    return trails_from_trailhead
+
+
 def search_unique_trailends(i, j, val) -> list[tuple]:
     accessable_trailends = set()
     vectors = [(-1, 0), (0, 1), (1, 0), (0, -1)]
@@ -38,7 +53,12 @@ def part1():
 
 
 def part2():
-    return
+    trail_rating = 0
+    for i in range(len(puzzle)):
+        for j in range(len(puzzle[i])):
+            if puzzle[i][j] == 0:
+                trail_rating += search_unique_trails(i, j, 0)
+    return trail_rating
 
 
 print(f'Part 1: {part1()}')
